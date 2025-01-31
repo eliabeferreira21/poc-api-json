@@ -57,10 +57,10 @@ Clone este repositório para o seu ambiente local:
 O ambiente é configurado utilizando Docker Compose. O arquivo docker-compose.yml já está preparado para subir todos os serviços necessários: FastAPI, MongoDB, RabbitMQ e MySQL.
 
 4. Executando a Aplicação
-Para subir a aplicação, execute o seguinte comando na raiz do projeto:
+Passos para Construir e Rodar
+Construa a Imagem da API:
+No diretório ./api, execute o seguinte comando para construir a imagem Docker:```docker build -t fastapi-app .``` Suba os Serviços com Docker Compose: Na raiz do projeto, execute:```docker-compose up --build```
 
-
-```docker-compose up --build```
 Isso irá:
 
 Construir as imagens Docker necessárias.
@@ -148,16 +148,11 @@ Verifica se a API retorna um erro quando nenhum JSON é enviado.
 Os logs da aplicação são armazenados no diretório api/logs/app.log. Eles registram todas as operações, incluindo sucessos e falhas no upload, processamento do RabbitMQ e inserções no MySQL.
 
 8. Parando a Aplicação
-Para parar a aplicação e remover os contêineres, execute:
-
-
-docker-compose down
+Para parar a aplicação e remover os contêineres, execute:```docker-compose down```
 9. Limpeza de Dados
-Se desejar remover os volumes persistentes (dados do MongoDB e MySQL), utilize:
+Se desejar remover os volumes persistentes (dados do MongoDB e MySQL), utilize:```docker-compose down -v```
 
-
-```docker-compose down -v```
-Estrutura do Projeto
+## Estrutura do Projeto
 api/: Contém o código da API FastAPI, testes e logs.
 
 mongo/: Configuração do MongoDB.
@@ -168,25 +163,25 @@ mysql/: Configuração do MySQL.
 
 docker-compose.yml: Arquivo de configuração do Docker Compose.
 
-Testes Automatizados
+## Testes Automatizados
 Os testes automatizados estão localizados no diretório api/tests/ e cobrem:
 
-Persistência no MongoDB:
+#### Persistência no MongoDB:
 
 Verifica se os dados do arquivo JSON são corretamente armazenados no MongoDB.
 
-Envio de Mensagens para o RabbitMQ:
+#### Envio de Mensagens para o RabbitMQ:
 
 Garante que as mensagens são enviadas corretamente para a fila do RabbitMQ.
 
-Persistência no MySQL:
+#### Persistência no MySQL:
 
 Verifica se os dados são corretamente processados e inseridos no MySQL após o consumo da mensagem do RabbitMQ.
 
-Envio de JSON via Body:
+#### Envio de JSON via Body:
 
 Verifica se o JSON enviado diretamente no corpo da requisição é processado corretamente.
 
-Validação de Erros:
+#### Validação de Erros:
 
 Verifica se a API retorna erros adequados quando nenhum JSON é fornecido.
