@@ -117,6 +117,12 @@ curl -X POST "http://localhost:8000/upload/" \
      -H "Content-Type: multipart/form-data" \
      -F "file=@path/to/your/file.json"
 ```
+
+Retornar Todos os Usuários
+```
+curl -X GET "http://localhost:8000/users/" -H "accept: application/json"
+```
+
 6. Testes Automatizados
 Os testes automatizados cobrem toda a aplicação, incluindo a persistência dos dados no MongoDB e no MySQL. Para executar os testes, utilize o seguinte comando: ```docker-compose exec api pytest api/tests/test_integration.py -v```
 O que os testes verificam?
