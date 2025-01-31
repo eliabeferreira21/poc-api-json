@@ -2,6 +2,30 @@
 
 Este projeto implementa uma solução que permite o upload de um arquivo JSON via API, persiste os dados no MongoDB, e processa-os de forma assíncrona utilizando RabbitMQ para enviá-los ao MySQL. A API foi desenvolvida com FastAPI e suporta o envio de JSON tanto via upload de arquivo quanto diretamente no corpo da requisição. O ambiente é configurado utilizando Docker Compose.
 
+### Estrutura do Projeto
+
+A estrutura do projeto pode ser organizada da seguinte forma:
+```.
+├── docker-compose.yml
+├── api
+│   ├── Dockerfile
+│   ├── main.py
+│   ├── models.py
+│   ├── services.py
+│   ├── consumers.py
+│   ├── logs
+│   │   └── app.log
+│   └── tests
+│       └── test_api.py
+├── mongo
+│   └── Dockerfile
+├── rabbitmq
+│   └── Dockerfile
+├── mysql
+│   └── Dockerfile
+└── README.md
+```
+
 ### Requisitos
 Docker
 Docker Compose
@@ -30,8 +54,8 @@ Baixe e instale o Docker Desktop. O Docker Compose já está incluído no Docker
 
 2. Clone o Repositório
 Clone este repositório para o seu ambiente local:
-```git clone https://github.com/seu-usuario/seu-repositorio.git```
-```cd seu-repositorio```
+```git clone https://github.com/eliabeferreira21/poc-api-json.git```
+```cd poc-api-json```
 
 3. Configuração do Ambiente
 O ambiente é configurado utilizando Docker Compose. O arquivo docker-compose.yml já está preparado para subir todos os serviços necessários: FastAPI, MongoDB, RabbitMQ e MySQL.
@@ -98,10 +122,7 @@ curl -X POST "http://localhost:8000/upload/" \
      -F "file=@path/to/your/file.json"
 ```
 6. Testes Automatizados
-Os testes automatizados cobrem toda a aplicação, incluindo a persistência dos dados no MongoDB e no MySQL. Para executar os testes, utilize o seguinte comando:
-
-
-```docker-compose exec api pytest api/tests/test_integration.py -v```
+Os testes automatizados cobrem toda a aplicação, incluindo a persistência dos dados no MongoDB e no MySQL. Para executar os testes, utilize o seguinte comando: ```docker-compose exec api pytest api/tests/test_integration.py -v```
 O que os testes verificam?
 Upload e Persistência no MongoDB:
 
