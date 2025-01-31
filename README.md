@@ -9,21 +9,17 @@ A estrutura do projeto pode ser organizada da seguinte forma:
 ├── docker-compose.yml
 ├── api
 │   ├── Dockerfile
+│   ├── requirements.txt
 │   ├── main.py
 │   ├── models.py
 │   ├── services.py
 │   ├── consumers.py
 │   ├── logs
-│   │   └── app.log
 │   └── tests
-│       └── test_api.py
+│       └── test_integration.py
 ├── mongo
-│   └── Dockerfile
 ├── rabbitmq
-│   └── Dockerfile
-├── mysql
-│   └── Dockerfile
-└── README.md
+└── mysql
 ```
 
 ### Requisitos
