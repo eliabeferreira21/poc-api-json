@@ -1,39 +1,38 @@
-Projeto de Upload e Processamento de Arquivos JSON
+## Projeto de Upload e Processamento de Arquivos JSON
+
 Este projeto implementa uma solução que permite o upload de um arquivo JSON via API, persiste os dados no MongoDB, e processa-os de forma assíncrona utilizando RabbitMQ para enviá-los ao MySQL. A API foi desenvolvida com FastAPI e suporta o envio de JSON tanto via upload de arquivo quanto diretamente no corpo da requisição. O ambiente é configurado utilizando Docker Compose.
 
-Requisitos
+### Requisitos
 Docker
-
 Docker Compose
 
-Passo a Passo
+### Passo a Passo
 1. Instalação do Docker e Docker Compose
 Se você ainda não tem o Docker e o Docker Compose instalados, siga as instruções abaixo:
 
 No Ubuntu/Debian:
 
-# Atualize o sistema
-sudo apt update
+## Atualize o sistema
+```sudo apt update```
 
-# Instale o Docker
-sudo apt install docker.io
+## Instale o Docker
+```sudo apt install docker.io```
 
-# Instale o Docker Compose
-sudo apt install docker-compose
+## Instale o Docker Compose
+```sudo apt install docker-compose```
 
-# Adicione seu usuário ao grupo docker (para evitar usar sudo)
-sudo usermod -aG docker $USER
+## Adicione seu usuário ao grupo docker (para evitar usar sudo)
+```sudo usermod -aG docker $USER```
 
-# Reinicie o sistema ou faça logout/login para aplicar as mudanças
+## Reinicie o sistema ou faça logout/login para aplicar as mudanças
 No Windows ou macOS:
 Baixe e instale o Docker Desktop. O Docker Compose já está incluído no Docker Desktop.
 
 2. Clone o Repositório
 Clone este repositório para o seu ambiente local:
+```git clone https://github.com/seu-usuario/seu-repositorio.git```
+```cd seu-repositorio```
 
-
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
 3. Configuração do Ambiente
 O ambiente é configurado utilizando Docker Compose. O arquivo docker-compose.yml já está preparado para subir todos os serviços necessários: FastAPI, MongoDB, RabbitMQ e MySQL.
 
@@ -41,7 +40,7 @@ O ambiente é configurado utilizando Docker Compose. O arquivo docker-compose.ym
 Para subir a aplicação, execute o seguinte comando na raiz do projeto:
 
 
-docker-compose up --build
+```docker-compose up --build```
 Isso irá:
 
 Construir as imagens Docker necessárias.
@@ -56,7 +55,7 @@ A API estará disponível em http://localhost:8000. Você pode testá-la utiliza
 Exemplo de Upload de Arquivo JSON
 Crie um arquivo JSON com o seguinte formato:
 
-
+```
 [
     {
         "name": "João Silva",
@@ -69,6 +68,7 @@ Crie um arquivo JSON com o seguinte formato:
         "age": 25
     }
 ]
+```
 No Swagger UI, utilize o endpoint /upload/ para fazer o upload do arquivo JSON.
 
 Após o upload, os dados serão persistidos no MongoDB e uma mensagem será enviada para o RabbitMQ. O consumidor processará a mensagem e inserirá os dados no MySQL.
@@ -76,7 +76,7 @@ Após o upload, os dados serão persistidos no MongoDB e uma mensagem será envi
 Exemplo de Envio de JSON via Body
 Você também pode enviar o JSON diretamente no corpo da requisição:
 
-
+```
 curl -X POST "http://localhost:8000/upload/" \
      -H "accept: application/json" \
      -H "Content-Type: application/json" \
@@ -87,11 +87,21 @@ curl -X POST "http://localhost:8000/upload/" \
              "age": 40
            }
          ]'
+```
+
+Exemplos de Envio JSON via Arquivo (Multipart Form)
+
+```
+curl -X POST "http://localhost:8000/upload/" \
+     -H "accept: application/json" \
+     -H "Content-Type: multipart/form-data" \
+     -F "file=@path/to/your/file.json"
+```
 6. Testes Automatizados
 Os testes automatizados cobrem toda a aplicação, incluindo a persistência dos dados no MongoDB e no MySQL. Para executar os testes, utilize o seguinte comando:
 
 
-docker-compose exec api pytest api/tests/test_integration.py -v
+```docker-compose exec api pytest api/tests/test_integration.py -v```
 O que os testes verificam?
 Upload e Persistência no MongoDB:
 
@@ -129,7 +139,7 @@ docker-compose down
 Se desejar remover os volumes persistentes (dados do MongoDB e MySQL), utilize:
 
 
-docker-compose down -v
+```docker-compose down -v```
 Estrutura do Projeto
 api/: Contém o código da API FastAPI, testes e logs.
 
@@ -163,9 +173,3 @@ Verifica se o JSON enviado diretamente no corpo da requisição é processado co
 Validação de Erros:
 
 Verifica se a API retorna erros adequados quando nenhum JSON é fornecido.
-
-Contribuição
-Se você deseja contribuir para este projeto, sinta-se à vontade para abrir issues ou pull requests.
-
-Licença
-Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE para mais detalhes.
